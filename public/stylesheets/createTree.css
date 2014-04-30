@@ -1,0 +1,113 @@
+ #tree {
+     margin: 30px auto;
+     width: 100%;
+     height: 100%;
+ }
+ .name {
+     margin-left: 30px;
+ }
+ .new-name {
+     border: 0;
+ }
+ .root-label:before {
+     content: "";
+     background: url(../../public/images/black/home.png) no-repeat;
+     display: inline-block;
+     width: 24px;
+     height: 24px;
+     top: 10px;
+     position: relative;
+     margin: 5px;
+ }
+ .folder:before {
+     content: "";
+     background: url(../../public/images/black/folder-open.png) no-repeat;
+     display: inline-block;
+     width: 46px;
+     height: 24px;
+     top: 10px;
+     position: relative;
+     margin: 5px;
+ }
+ .folder-colse:before {
+     content: "";
+     background: url(../../public/images/black/folder_open_icon.png) no-repeat;
+     display: inline-block;
+     width: 24px;
+     height: 24px;
+     top: 10px;
+     position: relative;
+     margin: 5px;
+ }
+ .doc:before {
+     content: "";
+     background: url(../../public/images/black/doc.png) no-repeat;
+     display: inline-block;
+     width: 24px;
+     height: 24px;
+     top: 10px;
+     position: relative;
+     margin: 5px;
+ }
+ .edit-div {
+     display: inline-block;
+     position: relative;
+     margin: 0 10px;
+     padding: 0 10px;
+     height: 100%;
+ }
+ .edit-div:after {
+     display: inline-block;
+     position: relative;
+     top: 7px;
+     left: -99px;
+     width: 90px;
+     height: 24px;
+     content: "";
+     background: url(../../public/images/black/edit1.png) no-repeat;
+     z-index: 1;
+ }
+ .edit-btn {
+     display: inline-block;
+     position: relative;
+     margin: 0 9px 0 0;
+     padding: 0;
+     top: 7px;
+     width: 24px;
+     height: 24px;
+     background: none;
+     border: 0;
+     cursor: pointer;
+     z-index: 5;
+ }
+ .new-folder-btn:after {
+     display: inline-block;
+     position: relative;
+     width: 24px;
+     height: 24px;
+     content: "";
+     background: url(../../public/images/black/folder_new.png) no-repeat;
+     z-index: 1;
+ }
+ .root-btn {
+     display: inline-block;
+     position: relative;
+     margin: 0 0 0 10px;
+     padding: 0;
+     top: 7px;
+     width: 24px;
+     height: 24px;
+     background: none;
+     border: 0;
+     cursor: pointer;
+     z-index: 5;
+ }
+ .get-name-div {
+     position: absolute;
+     top: 50px;
+     border: 1px solid;
+     left: -30px;
+     background-color: #fff;
+     padding: 20px;
+     z-index: 10;
+ }
