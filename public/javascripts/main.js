@@ -43,5 +43,3 @@ $(document).ready(function() {
 
     document.getElementById("mainContent").onload = resizeWindow.bind(null, true);
 });
-
-

@@ -37,6 +37,3 @@ function checkName(){
     req.send();
 }
 
-function nextPage(id){
-    window.parent.document.getElementById("mainContent").src = "../../Views/templates/" + id + ".html";
-}

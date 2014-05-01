@@ -56,7 +56,7 @@
      padding: 0 10px;
      height: 100%;
  }
- .edit-div:after {
+.doc > .edit-div:after {
      display: inline-block;
      position: relative;
      top: 7px;
@@ -64,9 +64,21 @@
      width: 90px;
      height: 24px;
      content: "";
-     background: url(../../public/images/black/edit1.png) no-repeat;
+     background: url(../../public/images/black/doc_edit.png) no-repeat;
      z-index: 1;
  }
+
+.folder > .edit-div:after{
+    display: inline-block;
+     position: relative;
+     top: 7px;
+     left: -66px;
+     width: 57px;
+     height: 24px;
+     content: "";
+     background: url(../../public/images/black/folder_edit.png) no-repeat;
+     z-index: 1;
+}
  .edit-btn {
      display: inline-block;
      position: relative;
