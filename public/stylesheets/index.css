@@ -146,33 +146,73 @@ li {
     height: 100%;
 }
 .edit-content-div {
-    position: absolute;
+    position: relative;
     margin: auto;
-    width: 830px;
-    height: 100%;
+    width: 733px;
+    height: 300px;
     z-index: 100;
-    top: 330px;
+    top: 200px;
     background-color: #fff;
+    border-radius: 4px;
+}
+.edit-content-div h5 {
+    font-size: 14px;
+}
+.edit-content-div table{
+    width:100%;
+    text-align:center;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 .edit-content-div li {
     display: inline-block;
     float: left;
 }
+.edit-content-div > input[type=button] {
+    margin: 20px auto;
+    display: block;
+}
 .edit-content-div input {
     width: 100px;
     margin: 0 10px;
+}
+.edit-content-div table input{
+    border: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+    background-color: #fff;
+    text-align: center;
+}
+.edit-content-div table tr:nth-child(n+2):after{
+    background: url(../../public/images/black/edit-content.png) no-repeat;
+    display: inline-block;
+     position: relative;
+     width: 41px;
+     height: 16px;
+     content: "";
+     z-index: 1;
+}
+.edit-content-div table td{
+    border-top: 1px solid #ddd;
+    line-height: 30px;
+}
+.edit-content-div table tr:nth-child(2n), .edit-content-div table tr:nth-child(2n) input{
+    background-color: #f9f9f9;
 }
 .edit-content-div select {
     margin: 0 10px;
 }
 .edit-content-div-colse {
     background: url(../../public/images/black/colse.png) no-repeat;
-    width: 24px;
     height: 24px;
+    width: 24px;
     border: 0;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
     position: relative;
     float: right;
+    top: -8px;
+    right: -5px;
+    cursor: pointer;
 }
 .edit-content-input {
     margin: 30px 0;
@@ -191,4 +231,14 @@ li {
 .content-list th{
     display: inline;
     font-weight: bold;
+}
+*/
+
+.cover-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(19, 18, 18, 0.69);
+    z-index: 100;
+    top: 0px;
 }

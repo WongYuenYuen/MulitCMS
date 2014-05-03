@@ -32,8 +32,10 @@ function appendNode() {  //创建新目录节点
         var num = this.id.substr(4);
         var parentName = this.previousElementSibling.value;
         var projectName = this.getElementsByTagName("input")[0].value;
+        if(this.parentElement.className == "doc"){
         this.removeChild(this.getElementsByTagName("a")[1]); //当节点不是绝对子类时，
         removeContentStructure(parentName, num); //不能添加结构内容，如果之前添加了，则需要删除
+        }
    	}
     console.log(projectName);
 
@@ -144,6 +146,7 @@ function newNode() {  //弹出创建新子节点的输入框
         div.className = "get-name-div";
         var name = document.createElement("input");
         name.type = "text";
+        name.placeholder = "输入节点名字";
         var button = document.createElement("input");
         button.type = "button";
         button.value = "添加";
@@ -191,50 +194,52 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
     if(editDiv != undefined){
     	editDiv.style.display = "block";
     }
-    else{
-    var div = document.createElement("div");
-    div.className = "edit-content-div";
+    else {
+       var cover = document.createElement("div");
+       cover.className = "cover-div";
 
-    var colse = document.createElement("input");
-    colse.type = "button";
-    colse.className = "edit-content-div-colse";
-    colse.onclick = function () {
-        this.parentElement.style.display = "none";
-    };
-    div.appendChild(colse);
 
-    var ul = document.createElement("ul");
-    ul.className = "edit-content-input";
-    var li = new Array();
-    for (var i = 0; i < 5; i++) {
-        li[i] = document.createElement("li");
-        ul.appendChild(li[i]);
-    }
-    var name = document.createElement("input");
-    name.type = "text";
-    name.placeholder = "字段名";
-    name.onblur = checkAdd;
-    var i = document.createElement("i");
-    i.className = "must";
-    li[0].appendChild(name);
-    li[0].appendChild(i);
+       var div = document.createElement("div");
+       div.className = "edit-content-div";
+       cover.appendChild(div);
+       cover.style.height = window.scrollHeight + "px";
 
-    var type = document.createElement("select");
-    type.onblur = checkAdd;
-    var options = new Array();
-    options[0] = document.createElement("option");
-    options[0].innerHTML = "数据类型";
-    type.appendChild(options[0]);
-    for (var i = 1; i < 5; i++) {
-        options[i] = document.createElement("option");
-        options[i].innerHTML = dataType[i];
-        options[i].value = dataType[i];
-        type.appendChild(options[i]);
-    }
-    var i = document.createElement("i");
-    i.className = "must";
-    li[1].appendChild(type);
-    li[1].appendChild(i);
+       var colse = document.createElement("a");
+       colse.className = "edit-content-div-colse";
+       colse.onclick = colseContentDiv;
+       div.appendChild(colse);
+       var ul = document.createElement("ul");
+       ul.className = "edit-content-input";
+       var li = new Array();
+       for (var i = 0; i < 5; i++) {
+           li[i] = document.createElement("li");
+           ul.appendChild(li[i]);
+       }
+       var name = document.createElement("input");
+       name.type = "text";
+       name.placeholder = "字段名";
+       name.onblur = checkAdd;
+       var i = document.createElement("i");
+       i.className = "must";
+       li[0].appendChild(name);
+       li[0].appendChild(i);
+
+       var type = document.createElement("select");
+       type.onblur = checkAdd;
+       var options = new Array();
+       options[0] = document.createElement("option");
+       options[0].innerHTML = "数据类型";
+       type.appendChild(options[0]);
+       for (var i = 1; i < 5; i++) {
+           options[i] = document.createElement("option");
+           options[i].innerHTML = dataType[i];
+           options[i].value = dataType[i];
+           type.appendChild(options[i]);
+       }
+       var i = document.createElement("i");
+       i.className = "must";
+       li[1].appendChild(type);
+       li[1].appendChild(i);
 
     var length = document.createElement("input");
     length.type = "text";
@@ -250,7 +255,7 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
     button.type = "button";
     button.disabled = true;
     button.value = "添加";
-    button.onclick = function (nodeName, num) {  //添加列表的内容到内容结构json里, nodeName , num有问题
+    button.onclick = function (nodeName, num) { //添加列表的内容到内容结构json里, nodeName , num有问题
         var ul = this.parentElement.parentElement;
         var div = ul.parentElement;
         var items = ul.getElementsByTagName("li");
@@ -261,26 +266,18 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
             "length": items[2].childNodes[0].value,
             "extend": items[3].childNodes[0].value
         };
-        if(contentStructure[num] == undefined){
-        	contentStructure[num] = new Array();
-        console.log(contentStructure[num]);
+        if (contentStructure[num] == undefined) {
+            contentStructure[num] = new Array();
+            console.log(contentStructure[num]);
         }
-        
+
         console.log(contentStructure[num]);
         contentStructure[num].push(content);
 
-        if (div.getElementsByTagName("h5")[0] != undefined) {
-            var table = div.getElementsByClassName("content-list")[0];
-            console.log(table);
-        } else {
-            var h5 = document.createElement("h5");
-            h5.innerHTML = nodeName + "的结构内容：";
-            div.appendChild(h5);
-
-            var table = document.createElement("table");
-            table.className = "content-list";
-            div.appendChild(table);
-
+        var table = div.getElementsByClassName("content-list")[0];
+        var h5 = div.getElementsByTagName("h5")[0];
+        h5.innerHTML = nodeName;
+        if (table.getElementsByTagName("th").length == 0) {
             var tr = document.createElement("tr");
             table.appendChild(tr);
             var th = new Array();
@@ -299,25 +296,47 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
         var td = new Array();
         for (var i = 0; i < 4; i++) {
             td[i] = document.createElement("td");
-            td[i].innerHTML = items[i].childNodes[0].value;
+                var value = document.createElement("input");
+            value.type = "text";
+            value.value = items[i].childNodes[0].value;
+            value.disabled = true;
+                td[i].appendChild(value);
             tr.appendChild(td[i]);
         }
+        var a = new Array();
+        for(var i = 0 ; i < 2; i++){
+            a[i] = document.createElement("a");
+            tr.appendChild(a[i]);
+        }
+        a[0].title = "修改内容";
+        a[0].onclick = function(){
+        	this.parent.getElementsByTagName("input").disabled = false;
+        };
+        
+        a[1].title = "删除该内容";
+        a[1].onclick = function(){};
     }
     };
     li[4].appendChild(button);
     div.appendChild(ul);
-    
+
+    var h5 = document.createElement("h5");
+    h5.innerHTML = nodeName + "的结构内容：";
+    div.appendChild(h5);
+
+    var table = document.createElement("table");
+    table.className = "content-list";
+    div.appendChild(table);
+
     var submit = document.createElement("input");
     submit.type = "button";
     submit.className = "correct";
     submit.value = "完成";
-    submit.onclick = function (){
-        this.parentElement.style.display = "none";
-    }
+    submit.onclick = colseContentDiv;
     div.appendChild(submit);
-    
-    window.parent.document.getElementsByTagName("body")[0].appendChild(div);
-}
+
+    window.parent.document.getElementsByTagName("body")[0].appendChild(cover);
+    }
 
 function removeNode() {  //删除节点， 这个需要删除节点的内容，修改json， 修改内容结构
     console.log("removeNode");
@@ -448,3 +467,7 @@ function submitContentDiv() {  //弹出提交的div
     div.appendChild(cancel);
     document.getElementsByTagName("body")[0].appendChild(div);
 }
+function colseContentDiv () {
+        this.parentElement.style.display = "none";
+        this.parentElement.parentElement.style.display = "none";
+    }
