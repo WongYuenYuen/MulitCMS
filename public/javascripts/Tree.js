@@ -55,7 +55,6 @@ function appendNode() {  //创建新目录节点
     for (var i = 0; i < 3; i++) {
         a[i] = document.createElement("a");
         div.appendChild(a[i]);
-        a[i].className = "edit-btn";
         a[i].title = editFunctions[i].title;
     }
 
@@ -192,7 +191,7 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
     var editDiv = window.parent.document.getElementsByClassName("edit-content-div")[0];
     console.log(editDiv);
     if(editDiv != undefined){
-    	editDiv.style.display = "block";
+    	editDiv.parentElement.style.display = "block";
     }
     else {
        var cover = document.createElement("div");
@@ -224,18 +223,8 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
        li[0].appendChild(name);
        li[0].appendChild(i);
 
-       var type = document.createElement("select");
-       type.onblur = checkAdd;
-       var options = new Array();
-       options[0] = document.createElement("option");
-       options[0].innerHTML = "数据类型";
-       type.appendChild(options[0]);
-       for (var i = 1; i < 5; i++) {
-           options[i] = document.createElement("option");
-           options[i].innerHTML = dataType[i];
-           options[i].value = dataType[i];
-           type.appendChild(options[i]);
-       }
+       ///////////////////////////////////////
+        var type = createSelect();
        var i = document.createElement("i");
        i.className = "must";
        li[1].appendChild(type);
@@ -268,10 +257,8 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
         };
         if (contentStructure[num] == undefined) {
             contentStructure[num] = new Array();
-            console.log(contentStructure[num]);
         }
 
-        console.log(contentStructure[num]);
         contentStructure[num].push(content);
 
         var table = div.getElementsByClassName("content-list")[0];
@@ -296,26 +283,45 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
         var td = new Array();
         for (var i = 0; i < 4; i++) {
             td[i] = document.createElement("td");
+            if(i == 1){
+                var value = createSelect();
+            }else{
                 var value = document.createElement("input");
             value.type = "text";
+            }
             value.value = items[i].childNodes[0].value;
             value.disabled = true;
                 td[i].appendChild(value);
             tr.appendChild(td[i]);
         }
         var a = new Array();
-        for(var i = 0 ; i < 2; i++){
+        for(var i = 0 ; i < 3; i++){
             a[i] = document.createElement("a");
             tr.appendChild(a[i]);
         }
         a[0].title = "修改内容";
         a[0].onclick = function(){
-        	this.parent.getElementsByTagName("input").disabled = false;
+            this.parentElement.className = "edit-content-input-able";
+            var input = this.parentElement.getElementsByTagName("input");
+            for(var i = 0 ; i < input.length; i++){
+        	input[i].disabled = false;
+            }
+            var select = this.parentElement.getElementsByTagName("select")[0];
+            select.disabled = false;
         };
         
-        a[1].title = "删除该内容";
+        a[1].title = "修改完成";
         a[1].onclick = function(){};
-    }
+        
+        a[2].title = "删除该内容";
+        a[2].onclick = function(){};
+        
+        console.log(div.offsetHeight);
+        div.style.height = parseFloat(div.offsetHeight) + parseFloat(33) + "px";
+        console.log("after   " + div.offsetHeight);
+        if((div.offsetHeight + div.offsetTop) >= div.parentElement.offsetHeight){
+            div.parentElement.style.height = div.offsetHeight + div.offsetTop + "px";
+        }
     };
     li[4].appendChild(button);
     div.appendChild(ul);
@@ -337,6 +343,7 @@ function editContentStructure(nodeName, num) {  //弹出添加内容结构的div
 
     window.parent.document.getElementsByTagName("body")[0].appendChild(cover);
     }
+}
 
 function removeNode() {  //删除节点， 这个需要删除节点的内容，修改json， 修改内容结构
     console.log("removeNode");
@@ -468,6 +475,22 @@ function submitContentDiv() {  //弹出提交的div
     document.getElementsByTagName("body")[0].appendChild(div);
 }
 function colseContentDiv () {
-        this.parentElement.style.display = "none";
+        //this.parentElement.style.display = "none";
         this.parentElement.parentElement.style.display = "none";
     }
+
+function createSelect(){
+    var type = document.createElement("select");
+       type.onblur = checkAdd;
+       var options = new Array();
+       options[0] = document.createElement("option");
+       options[0].innerHTML = "数据类型";
+       type.appendChild(options[0]);
+       for (var i = 1; i < 5; i++) {
+           options[i] = document.createElement("option");
+           options[i].innerHTML = dataType[i];
+           options[i].value = dataType[i];
+           type.appendChild(options[i]);
+       }
+    return type;
+}

@@ -183,18 +183,40 @@ li {
     background-color: #fff;
     text-align: center;
 }
-.edit-content-div table tr:nth-child(n+2):after{
-    background: url(../../public/images/black/edit-content.png) no-repeat;
-    display: inline-block;
-     position: relative;
-     width: 41px;
-     height: 16px;
-     content: "";
-     z-index: 1;
-}
 .edit-content-div table td{
-    border-top: 1px solid #ddd;
     line-height: 30px;
+}
+.edit-content-div table tr:nth-child(n+2){
+    border-top: 1px solid #ddd;
+}
+.edit-content-div table a{
+         display: inline-block;
+     position: relative;
+     margin: 0 9px 0 0;
+     padding: 0;
+     top: 7px;
+     width: 16px;
+     height: 16px;
+     background: url(../../public/images/black/edit-content.png) no-repeat;
+     border: 0;
+     cursor: pointer;
+     z-index: 5;
+}
+.edit-content-div table a[title="修改完成"]{
+    background-position-x: -16px;
+}
+.edit-content-div table a[title="删除该内容"]{
+    background-position-x: -32px;
+}
+
+.edit-content-div table a[title="修改内容"]:hover{
+    background-position-x: -48px;
+}
+.edit-content-div table a[title="修改完成"]:hover{
+    background-position-x: -64px;
+}
+.edit-content-div table a[title="删除该内容"]:hover{
+    background-position-x: -80px;
 }
 .edit-content-div table tr:nth-child(2n), .edit-content-div table tr:nth-child(2n) input{
     background-color: #f9f9f9;
@@ -217,6 +239,10 @@ li {
 .edit-content-input {
     margin: 30px 0;
     display: inline-block;
+}
+.edit-content-input-able input[type="text"]{
+    background-color: #fff;
+border: 1px solid;
 }
 .must:after {
     content: "*";
